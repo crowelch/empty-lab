@@ -1,0 +1,22 @@
+{
+  "name": "empty-lab",
+  "version": "0.1.0",
+  "description": "Display whether a classroom is in use by turning LEDs on and off",
+  "main": "app.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/crowelch/empty-lab.git"
+  },
+  "author": "Chris Crowell",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/crowelch/empty-lab/issues"
+  },
+  "homepage": "https://github.com/crowelch/empty-lab",
+  "dependencies": {
+    "agenda": "^0.6.28"
+  }
+}

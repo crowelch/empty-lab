@@ -1,0 +1,109 @@
+{
+	"labs": [{
+		"room": 533,
+		"times": [{
+			"dayOfWeek": "Tuesday",
+			"start": "14:00",
+			"end": "16:50"
+		},{
+			"dayOfWeek": "Wednesday",
+			"start": "12:30",
+			"end": "18:20"
+		},{
+			"dayOfWeek": "Thursday",
+			"start": "14:00",
+			"end": "16:50"
+		}]
+	},{
+		"room": 537,
+		"busyTimes": [{
+			"dayOfWeek": "Monday",
+			"start": "15:35",
+			"end": "16:55"
+		},{
+			"dayOfWeek": "Monday",
+			"start": "18:00",
+			"end": "20:00"
+		},{
+			"dayOfWeek": "Tuesday",
+			"start": "11:00",
+			"end": "12:20"
+		},{
+			"dayOfWeek": "Tuesday",
+			"start": "15:30",
+			"end": "19:20"
+		},{
+			"dayOfWeek": "Wednesday",
+			"start": "15:35",
+			"end": "16:55"
+		},{
+			"dayOfWeek": "Thursday",
+			"start": "11:00",
+			"end": "12:20"
+		},{
+			"dayOfWeek": "Thursday",
+			"start": "15:30",
+			"end": "19:20"
+		}]
+	},{
+		"room": 548,
+		"busyTimes": [{
+			"dayOfWeek": "Monday",
+			"start": "14:30",
+			"end": "16:30"
+		},{
+			"dayOfWeek": "Tuesday",
+			"start": "09:00",
+			"end": "10:20"
+		},{
+			"dayOfWeek": "Tuesday",
+			"start": "11:00",
+			"end": "13:50"
+		},{
+			"dayOfWeek": "Tuesday",
+			"start": "14:30",
+			"end": "16:35"
+		},{
+			"dayOfWeek": "Wednesday",
+			"start": "10:10",
+			"end": "14:20"
+		},{
+			"dayOfWeek": "Thursday",
+			"start": "09:00",
+			"end": "10:20"
+		},{
+			"dayOfWeek": "Thursday",
+			"start": "11:00",
+			"end": "13:50"
+		},{
+			"dayOfWeek": "Thursday",
+			"start": "15:30",
+			"end": "19:20"
+		}]
+	},{
+		"room": 550,
+		"busyTimes": [{
+			"dayOfWeek": "Monday",
+			"start": "14:30",
+			"end": "17:35"
+		},{
+			"dayOfWeek": "Tuesday",
+			"start": "14:00",
+			"end": "16:50"
+		},{
+			"dayOfWeek": "Wednesday",
+			"start": "14:30",
+			"end": "17:35"
+		},{
+			"dayOfWeek": "Thursday",
+			"start": "14:00",
+			"end": "16:50"
+		}]
+	},{
+		"room": 805,
+		"busyTimes": []
+	},{
+		"room": 825,
+		"busyTimes": []
+	}]
+}

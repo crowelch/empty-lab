@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/crowelch/empty-lab",
   "dependencies": {
-    "cron-scheduler": "^1.0.0"
+    "cron-scheduler": "^1.0.0",
+    "moment": "^2.11.1",
+    "pasync": "^1.4.0"
   }
 }

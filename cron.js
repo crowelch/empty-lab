@@ -2,7 +2,15 @@ var cron = require('cron-scheduler');
 var moment = require('moment');
 var pasync = require('pasync');
 var _ = require('lodash');
+var fs = require('fs');
 var labSchedule = require('./labs');
+
+const RED = 'Red';
+const GREEN = 'Green';
+
+var roomObject = {
+	rooms: []
+};
 
 var cronObject = {
 	timezone: 'America/New_York',
@@ -11,14 +19,34 @@ var cronObject = {
 };
 
 cron(cronObject, function() {
-	pasync.each(labSchedule.labs, updateRooms);
+	pasync.each(labSchedule.labs, updateRooms).then(function() {
+		writeRoomToFile();
+	});
 });
+
+function writeRoomToFile() {
+	fs.writeFile('rooms.json', JSON.stringify(roomObject), function(error) {
+		if(error) {
+			console.log(error);
+		}
+	});
+}
+
+function addRoom(roomNumber, status) {
+	roomObject.rooms.push({
+		number: roomNumber,
+		status: status
+	});
+	console.log(roomNumber, status);
+}
 
 function updateRooms(room) {
 	if(isRoomBusy(room)) {
-		console.log(room.room, 'red')
+		addRoom(room.room, RED);
+		console.log(room.room, RED)
 	} else {
-		console.log(room.room, 'green')
+		addRoom(room.room, GREEN);
+		console.log(room.room, GREEN)
 	}
 }
 

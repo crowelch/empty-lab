@@ -4,7 +4,8 @@
   "description": "Display whether a classroom is in use by turning LEDs on and off",
   "main": "app.js",
   "scripts": {
-    "test": "test"
+    "pi-deploy": "forever start pi.js",
+    "site-deploy": "forever start site.js"
   },
   "repository": {
     "type": "git",
@@ -18,6 +19,7 @@
   "homepage": "https://github.com/crowelch/empty-lab",
   "dependencies": {
     "cron-scheduler": "^1.0.0",
+    "handlebars": "^4.0.5",
     "lodash": "^3.10.1",
     "moment": "^2.11.1",
     "pasync": "^1.4.0"

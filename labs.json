@@ -99,11 +99,5 @@
 			"start": "14:00",
 			"end": "16:50"
 		}]
-	},{
-		"room": 805,
-		"busyTimes": []
-	},{
-		"room": 825,
-		"busyTimes": []
 	}]
 }

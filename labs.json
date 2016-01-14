@@ -1,7 +1,7 @@
 {
 	"labs": [{
-		"room": 533,
-		"times": [{
+		"number": "533",
+		"busyTimes": [{
 			"dayOfWeek": "Tuesday",
 			"start": "14:00",
 			"end": "16:50"
@@ -15,7 +15,7 @@
 			"end": "16:50"
 		}]
 	},{
-		"room": 537,
+		"number": "537",
 		"busyTimes": [{
 			"dayOfWeek": "Monday",
 			"start": "15:35",
@@ -46,7 +46,7 @@
 			"end": "19:20"
 		}]
 	},{
-		"room": 548,
+		"number": "548",
 		"busyTimes": [{
 			"dayOfWeek": "Monday",
 			"start": "14:30",
@@ -81,7 +81,7 @@
 			"end": "19:20"
 		}]
 	},{
-		"room": 550,
+		"number": "550",
 		"busyTimes": [{
 			"dayOfWeek": "Monday",
 			"start": "14:30",

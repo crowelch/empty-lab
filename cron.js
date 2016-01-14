@@ -19,6 +19,7 @@ var cronObject = {
 };
 
 cron(cronObject, function() {
+	roomObject.rooms = [];
 	pasync.each(labSchedule.labs, updateRooms).then(function() {
 		writeRoomToFile();
 	});
@@ -37,17 +38,10 @@ function addRoom(roomNumber, status) {
 		number: roomNumber,
 		status: status
 	});
-	console.log(roomNumber, status);
 }
 
 function updateRooms(room) {
-	if(isRoomBusy(room)) {
-		addRoom(room.room, RED);
-		console.log(room.room, RED)
-	} else {
-		addRoom(room.room, GREEN);
-		console.log(room.room, GREEN)
-	}
+	addRoom(room.number, isRoomBusy(room));
 }
 
 function isRoomBusy(room) {

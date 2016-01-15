@@ -2,16 +2,17 @@ var cron = require('cron-scheduler');
 var cronjobber = require('./cron');
 var gpio = require('pi-gpio');
 var _ = require('lodash');
+var cronstuff = require('./cron');
 var rooms = require('./rooms').rooms;
 
 const HIGH = 1;
 const LOW = 0;
 
 var mapRoomToPin = {
-	'533': 1,
-	'537': 2,
-	'548': 3,
-	'550': 4
+	'533': 0,
+	'537': 1,
+	'548': 4,
+	'550': 14
 };
 
 var cronObject = {

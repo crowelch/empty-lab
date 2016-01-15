@@ -1,4 +1,5 @@
-var cron = require('./cron');
+var cron = require('cron-scheduler');
+var cronjobber = require('./cron');
 var gpio = require('pi-gpio');
 var _ = require('lodash');
 var rooms = require('./rooms').rooms;

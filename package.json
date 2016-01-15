@@ -22,6 +22,7 @@
     "handlebars": "^4.0.5",
     "lodash": "^3.10.1",
     "moment": "^2.11.1",
-    "pasync": "^1.4.0"
+    "pasync": "^1.4.0",
+    "pi-gpio": "0.0.8"
   }
 }

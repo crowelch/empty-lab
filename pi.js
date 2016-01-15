@@ -26,7 +26,7 @@ cron(cronObject, function() {
 		if(room.status) {
 			writeToPin(mapRoomToPin[room.number], HIGH);
 		} else {
-			writeToPin(mapRoomToPin[room.number], HIGH);
+			writeToPin(mapRoomToPin[room.number], LOW);
 		}
 	});
 
@@ -40,3 +40,5 @@ function writeToPin(pin, value) {
 		});
 	});
 }
+
+console.log('pi started!');

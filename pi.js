@@ -9,10 +9,10 @@ const HIGH = 1;
 const LOW = 0;
 
 var mapRoomToPin = {
-	'533': 0,
-	'537': 1,
-	'548': 4,
-	'550': 14
+	'533': 22,
+	'537': 18,
+	'548': 16,
+	'550': 15
 };
 
 var cronObject = {
@@ -25,6 +25,7 @@ cron(cronObject, function() {
 	console.log('cron started', Date.now());
 
 	_.forEach(rooms, function(room) {
+		console.log(mapRoomToPin[room.number]);
 		if(room.status) {
 			writeToPin(mapRoomToPin[room.number], HIGH);
 		} else {

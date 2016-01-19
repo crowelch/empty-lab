@@ -10,19 +10,19 @@ const LOW = 0;
 var mapRoomToPin = {
 	'533': {
 		pin: 22,
-		value: 0
-	}
+		value: LOW
+	},
 	'537': {
 		pin: 18,
-		value: 0
+		value: LOW
 	},
 	'548': {
 		pin: 16,
-		value: 0
+		value: LOW
 	},
 	'550': {
 		pin: 15,
-		value: 0
+		value: LOW
 	}
 };
 
@@ -37,7 +37,7 @@ cron(cronObject, function() {
 
 	_.forEach(rooms, function(room) {
 		console.log(mapRoomToPin[room.number].pin);
-		if(room.status && (mapRoomToPin[room.number].value !==	HIGH) {
+		if(room.status && (mapRoomToPin[room.number].value !==	HIGH)) {
 			writeToPin(mapRoomToPin[room.number].pin, HIGH);
 		} else if(mapRoomToPin[room.number].value !== LOW) {
 			writeToPin(mapRoomToPin[room.number].pin, LOW);

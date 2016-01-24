@@ -1,6 +1,7 @@
 var cron = require('cron-scheduler');
 var gpio = require('pi-gpio');
 var _ = require('lodash');
+var Promise = require('es6-promise').Promise;
 var cronstuff = require('./cron');
 var rooms = require('./rooms').rooms;
 
@@ -10,19 +11,23 @@ const LOW = 0;
 var mapRoomToPin = {
 	'533': {
 		pin: 22,
-		value: LOW
+		value: LOW,
+		isOpen: false
 	},
 	'537': {
 		pin: 18,
-		value: LOW
+		value: LOW,
+		isOpen: false
 	},
 	'548': {
 		pin: 16,
-		value: LOW
+		value: LOW,
+		isOpen: false
 	},
 	'550': {
 		pin: 15,
-		value: LOW
+		value: LOW,
+		isOpen: false
 	}
 };
 
@@ -36,11 +41,14 @@ cron(cronObject, function() {
 	console.log('cron started', Date.now());
 
 	_.forEach(rooms, function(room) {
-		console.log(mapRoomToPin[room.number].pin);
-		if(room.status && (mapRoomToPin[room.number].value !==	HIGH)) {
-			writeToPin(mapRoomToPin[room.number].pin, HIGH);
-		} else if(mapRoomToPin[room.number].value !== LOW) {
-			writeToPin(mapRoomToPin[room.number].pin, LOW);
+		var roomData = mapRoomToPin[room.number];
+
+		console.log(roomData);
+
+		if(room.status && (roomData.value !==	HIGH)) {
+			writeToPin(roomData.pin, HIGH);
+		} else if(roomData.value !== LOW) {
+			writeToPin(roomData.pin, LOW);
 		}
 	});
 
@@ -48,12 +56,19 @@ cron(cronObject, function() {
 });
 
 function writeToPin(pin, value) {
-	gpio.close(pin);
-	gpio.open(pin, 'output', function(err) {
-		gpio.write(pin, value, function() {
-			// gpio.close(pin);
+	closePinIfOpen(roomData.pin, roomData.isOpen).then(function() {
+		gpio.open(pin, 'output', function(err) {
+			gpio.write(pin, value, function() {});
 		});
 	});
+}
+
+function closePinIfOpen(pin, isOpen) {
+	if(isOpen) {
+		gpio.close(pin);
+	}
+
+	Promise.resolve();
 }
 
 console.log('pi started!');

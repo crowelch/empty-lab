@@ -81,9 +81,9 @@ cron(cronObject, function() {
 function writeToPin(roomData, value) {
 	closePinIfOpen(roomData, roomData.isOpen).then(function() {
 		console.log('Opening pin ' + roomData.pin);
-		gpio.open(pin, 'output', function(err) {
+		gpio.open(roomData.pin, 'output', function(err) {
 			roomData.isOpen = true;
-			gpio.write(pin, value, function() {});
+			gpio.write(roomData.pin, value, function() {});
 		});
 	});
 }
@@ -93,7 +93,7 @@ function closePinIfOpen(roomData, isOpen) {
 	if(isOpen) {
 		gpio.close(roomData.pin);
 		roomData.isOpen = false;
-		console.log('closing pin ' + pin);
+		console.log('closing pin ' + roomData.pin);
 	}
 
 	return Promise.resolve();

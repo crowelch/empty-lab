@@ -26,7 +26,10 @@ cron(cronObject, function() {
 	roomObject.rooms = [];
 
 	// Asynchronously update each room. Order not guaranteed
-	async.each(labSchedule.labs, updateRooms).then(function() {
+	async.each(labSchedule.labs, updateRooms, function(err) {
+		if(err) {
+			console.log('cron async.each error: ' + err);
+		}
 		writeRoomToFile();
 	});
 });

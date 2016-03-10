@@ -45,10 +45,11 @@ cron(cronObject, function() {
 
 	// Get latest room data
 	utils.getRooms().then(function(rooms) {
-		console.log('rooms: ' + rooms);
+		console.log('rooms: ');
+		console.dir(rooms);
 		//TODO: Replace with async.each?
 
-		async.each(rooms, function(room) {
+		async.each(rooms.rooms, function(room) {
 			console.log('room: ');
 			console.dir(room);
 		}, function(err) {

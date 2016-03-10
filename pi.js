@@ -62,10 +62,10 @@ cron(cronObject, function() {
 			console.log('room value: ', roomData.value);
 			if(room.status) { // && (roomData.value !==	HIGH)) {
 				console.log('writing high to ' + roomData.pin);
-				writeToPin(roomData.pin, LOW);
+				writeToPin(roomData, LOW);
 			} else { //if(roomData.value !== LOW) {
 				console.log('writing low to ' + roomData.pin);
-				writeToPin(roomData.pin, HIGH);
+				writeToPin(roomData, HIGH);
 			}
 		}, function(err) {
 			if(err) {
@@ -78,19 +78,21 @@ cron(cronObject, function() {
 });
 
 // Write to gpio pins
-function writeToPin(pin, value) {
-	closePinIfOpen(roomData.pin, roomData.isOpen).then(function() {
-		console.log('Opening pin ' + pin);
+function writeToPin(roomData, value) {
+	closePinIfOpen(roomData, roomData.isOpen).then(function() {
+		console.log('Opening pin ' + roomData.pin);
 		gpio.open(pin, 'output', function(err) {
+			roomData.isOpen = true;
 			gpio.write(pin, value, function() {});
 		});
 	});
 }
 
 // Check if a pin is open, if so close it...?
-function closePinIfOpen(pin, isOpen) {
+function closePinIfOpen(roomData, isOpen) {
 	if(isOpen) {
-		gpio.close(pin);
+		gpio.close(roomData.pin);
+		roomData.isOpen = false;
 		console.log('closing pin ' + pin);
 	}
 

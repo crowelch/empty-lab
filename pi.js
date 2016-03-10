@@ -63,7 +63,7 @@ cron(cronObject, function() {
 			if(room.status && (roomData.value !==	HIGH)) {
 				console.log('writing high to ' + roomData.pin);
 				writeToPin(roomData.pin, HIGH);
-			} else if(roomData.value !== LOW) {
+			} else { //if(roomData.value !== LOW) {
 				console.log('writing low to ' + roomData.pin);
 				writeToPin(roomData.pin, LOW);
 			}

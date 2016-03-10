@@ -18,11 +18,11 @@
   },
   "homepage": "https://github.com/crowelch/empty-lab",
   "dependencies": {
+    "async": "^1.5.2",
     "cron-scheduler": "^1.0.0",
     "handlebars": "^4.0.5",
     "lodash": "^3.10.1",
     "moment": "^2.11.1",
-    "pasync": "^1.4.0",
     "pi-gpio": "0.0.8"
   }
 }

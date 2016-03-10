@@ -1,38 +1,46 @@
 var cron = require('cron-scheduler');
 var moment = require('moment');
-var pasync = require('pasync');
+var async = require('async');
 var _ = require('lodash');
 var fs = require('fs');
 var labSchedule = require('./labs');
 
+const ROOM_FILE = 'rooms.json';
 const RED = 'Red';
 const GREEN = 'Green';
 
+// Initialize roomObject
 var roomObject = {
 	rooms: []
 };
 
+// Settings for cron
 var cronObject = {
 	timezone: 'America/New_York',
 	on: '*/1 * * * *',
 	name: 'lab-update'
 };
 
+// Run cron job
 cron(cronObject, function() {
 	roomObject.rooms = [];
-	pasync.each(labSchedule.labs, updateRooms).then(function() {
+
+	// Asynchronously update each room. Order not guaranteed
+	async.each(labSchedule.labs, updateRooms).then(function() {
 		writeRoomToFile();
 	});
 });
 
+// Write completed roomObject to rooms.json
 function writeRoomToFile() {
-	fs.writeFile('rooms.json', JSON.stringify(roomObject), function(error) {
+	fs.writeFile(ROOM_FILE, JSON.stringify(roomObject), function(error) {
 		if(error) {
 			console.log(error);
 		}
 	});
 }
 
+// Add a room's data to roomObject
 function addRoom(roomNumber, status) {
 	roomObject.rooms.push({
 		number: roomNumber,
@@ -40,14 +48,17 @@ function addRoom(roomNumber, status) {
 	});
 }
 
+// Handy abstraction to addRoom to call from the cron job
 function updateRooms(room) {
 	addRoom(room.number, isRoomBusy(room));
 }
 
+// Return whether a room is busy (true) or not (false)
 function isRoomBusy(room) {
 	return !_.isEmpty(_.filter(room.busyTimes, isClassInSession));
 }
 
+// Check if a class is happenning now
 function isClassInSession(time) {
 	if(isToday(time.dayOfWeek)) {
 		return classHasStarted(time.start) && !classHasEnded(time.end);
@@ -56,16 +67,20 @@ function isClassInSession(time) {
 	}
 }
 
+// Check if a class is today
 function isToday(day) {
 	return moment().isSame(moment().day(day), 'day');
 }
 
+// Check if the start time of a class has passed
 function classHasStarted(startTime) {
 	return moment().isSameOrAfter(moment(startTime, 'HH:mm'));
 }
 
+// Check if a class end time has passed
 function classHasEnded(endTime) {
 	return !moment().isSameOrBefore(moment(endTime, 'HH:mm'));
 }
 
-console.log('empty-lab started!');
+// Alert the user the cron job is running
+console.log('empty-lab cron.js has started!');

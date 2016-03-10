@@ -2,7 +2,7 @@ var cron = require('cron-scheduler');
 var gpio = require('pi-gpio');
 var _ = require('lodash');
 var cronstuff = require('./cron');
-var rooms = require('./rooms').rooms;
+var utils = require('./utils');
 
 const HIGH = 1;
 const LOW = 0;

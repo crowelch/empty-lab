@@ -39,16 +39,18 @@ var cronObject = {
 cron(cronObject, function() {
 	console.log('cron started', Date.now());
 
-	_.forEach(rooms, function(room) {
-		var roomData = mapRoomToPin[room.number];
+	utils.getRooms().then(function(rooms) {
+		_.forEach(rooms, function(room) {
+			var roomData = mapRoomToPin[room.number];
 
-		console.log(roomData);
+			console.log(roomData);
 
-		if(room.status && (roomData.value !==	HIGH)) {
-			writeToPin(roomData.pin, HIGH);
-		} else if(roomData.value !== LOW) {
-			writeToPin(roomData.pin, LOW);
-		}
+			if(room.status && (roomData.value !==	HIGH)) {
+				writeToPin(roomData.pin, HIGH);
+			} else if(roomData.value !== LOW) {
+				writeToPin(roomData.pin, LOW);
+			}
+		});
 	});
 
 	console.log('cron finished', Date.now());
@@ -67,7 +69,7 @@ function closePinIfOpen(pin, isOpen) {
 		gpio.close(pin);
 	}
 
-	Promise.resolve();
+	return Promise.resolve();
 }
 
 console.log('pi started!');

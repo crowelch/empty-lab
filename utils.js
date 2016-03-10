@@ -1,5 +1,4 @@
 var fs = require('fs');
-var Promise = require('es6-promise').Promise;
 
 var defaultRooms = {
 	rooms: [{

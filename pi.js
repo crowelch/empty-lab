@@ -44,11 +44,14 @@ cron(cronObject, function() {
 
 	// Get latest room data
 	utils.getRooms().then(function(rooms) {
+		console.log('rooms: ' + rooms);
 		//TODO: Replace with async.each?
 		_.forEach(rooms, function(room) {
+			console.log('room: ' + room)
+
 			var roomData = mapRoomToPin[room.number];
 
-			console.log(roomData);
+			console.log('roomdata: ' + roomData);
 
 			// Check status and call function to write to pins
 			if(room.status && (roomData.value !==	HIGH)) {

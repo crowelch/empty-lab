@@ -58,6 +58,8 @@ cron(cronObject, function() {
 			console.dir(roomData);
 
 			// Check status and call function to write to pins
+			console.log('room status: ', room.status);
+			console.log('room value: ', roomData.value);
 			if(room.status && (roomData.value !==	HIGH)) {
 				console.log('writing high to ' + roomData.pin);
 				writeToPin(roomData.pin, HIGH);

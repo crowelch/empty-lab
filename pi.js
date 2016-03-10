@@ -1,7 +1,6 @@
 var cron = require('cron-scheduler');
 var gpio = require('pi-gpio');
 var _ = require('lodash');
-var Promise = require('es6-promise').Promise;
 var cronstuff = require('./cron');
 var rooms = require('./rooms').rooms;
 

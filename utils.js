@@ -23,10 +23,10 @@ exports.getRooms = function() {
 		fs.readFile('./rooms.json', 'utf-8', function(err, data) {
 			if(err) {
 				console.log('error reading rooms.json: ' + err);
-				data = defaultRooms;
+				data = JSON.parse(defaultRooms);
 			}
 
-			resolve(data);
+			resolve(JSON.parse(data));
 		});
 	});
 }

@@ -1,6 +1,5 @@
 var cron = require('cron-scheduler');
 var gpio = require('pi-gpio');
-var _ = require('lodash');
 var async = require('async');
 var cronstuff = require('./cron');
 var utils = require('./utils');
@@ -49,31 +48,27 @@ cron(cronObject, function() {
 		console.dir(rooms);
 		//TODO: Replace with async.each?
 
-		async.each(rooms.rooms, function(room) {
+		async.each(rooms, function(room) {
 			console.log('room: ');
 			console.dir(room);
+
+			var roomData = mapRoomToPin[room.number];
+
+			console.log('roomdata: ' + roomData);
+
+			// Check status and call function to write to pins
+			if(room.status && (roomData.value !==	HIGH)) {
+				console.log('writing high to ' + roomData.pin);
+				writeToPin(roomData.pin, HIGH);
+			} else if(roomData.value !== LOW) {
+				console.log('writing low to ' + roomData.pin);
+				writeToPin(roomData.pin, LOW);
+			}
 		}, function(err) {
 			if(err) {
 				console.log('pi.js async.each error: ' + err);
 			}
 		});
-		//
-		// _.forEach(rooms, function(room) {
-		// 	console.log('room: ' + room)
-		//
-		// 	var roomData = mapRoomToPin[room.number];
-		//
-		// 	console.log('roomdata: ' + roomData);
-		//
-		// 	// Check status and call function to write to pins
-		// 	if(room.status && (roomData.value !==	HIGH)) {
-		// 		console.log('writing high to ' + roomData.pin);
-		// 		writeToPin(roomData.pin, HIGH);
-		// 	} else if(roomData.value !== LOW) {
-		// 		console.log('writing low to ' + roomData.pin);
-		// 		writeToPin(roomData.pin, LOW);
-		// 	}
-		// });
 	});
 
 	console.log('cron finished', Date.now());

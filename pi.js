@@ -127,12 +127,19 @@ function writeLow(pin) {
 
 function gpioOpen(pin) {
 	return new Promise(function(resolve) {
-		gpio.close(pin);
+		gpio.close(pin, function(err) {
+			if(err) {
+				console.log('close error:');
+				console.log(err);
+			}
+		});
+
 		gpio.open(pin, OUTPUT, function(err) {
 				if(err) {
+					console.log('open error:');
 					console.log(err);
 				}
-
+				console.log('done opening ', pin);
 				resolve();
 		});
 	});
@@ -141,6 +148,7 @@ function gpioOpen(pin) {
 function gpioWrite(pin, value) {
 	gpio.write(pin, value, function(err) {
 		if(err) {
+			console.log('write error:');
 			console.log(err);
 		}
 	});

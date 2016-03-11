@@ -36,12 +36,38 @@ var mapRoomToPin = {
 	'550': {
 		openPin: 15,
 		busyPin: 21,
-		pin: 15,
 		value: LOW,
 		isOpen: false,
 		isBusy: false
 	}
 };
+
+var pins = {
+	22: {
+		isOpen: false
+	},
+	26: {
+		isOpen: false
+	},
+	28: {
+		isOpen: false
+	},
+	24: {
+		isOpen: false
+	},
+	16: {
+		isOpen: false
+	},
+	23: {
+		isOpen: false
+	},
+	25: {
+		isOpen: false
+	},
+	21: {
+		isOpen: false
+	},
+}
 
 // Settings for cron
 var cronObject = {

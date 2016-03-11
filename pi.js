@@ -6,28 +6,41 @@ var utils = require('./utils');
 
 const HIGH = 1;
 const LOW = 0;
+const BUSY = true;
+const FREE = false;
+const OUTPUT = 'output';
 
 //Object containing gpio pin, current value, and open status for the rooms
 var mapRoomToPin = {
 	'533': {
-		pin: 22,
+		openPin: 22,
+		busyPin: 26,
 		value: LOW,
-		isOpen: false
+		isOpen: false,
+		isBusy: false
 	},
 	'537': {
+		openPin: 18,
+		busyPin: 24,
 		pin: 18,
 		value: LOW,
-		isOpen: false
+		isOpen: false,
+		isBusy: false
 	},
 	'548': {
-		pin: 16,
+		openPin: 16,
+		busyPin: 23,
 		value: LOW,
-		isOpen: false
+		isOpen: false,
+		isBusy: false
 	},
 	'550': {
+		openPin: 15,
+		busyPin: 21,
 		pin: 15,
 		value: LOW,
-		isOpen: false
+		isOpen: false,
+		isBusy: false
 	}
 };
 
@@ -46,8 +59,8 @@ cron(cronObject, function() {
 	utils.getRooms().then(function(rooms) {
 		console.log('rooms: ');
 		console.dir(rooms);
-		//TODO: Replace with async.each?
 
+		// Asynchronously update each room's status
 		async.each(rooms, function(room) {
 			console.log('room: ');
 			console.dir(room);
@@ -61,11 +74,10 @@ cron(cronObject, function() {
 			console.log('room status: ', room.status);
 			console.log('room value: ', roomData.value);
 			if(room.status) { // && (roomData.value !==	HIGH)) {
-				console.log('writing high to ' + roomData.pin);
-				writeToPin(roomData, LOW);
-			} else { //if(roomData.value !== LOW) {
-				console.log('writing low to ' + roomData.pin);
-				writeToPin(roomData, HIGH);
+				console.log('writing high to ' + roomData.busyPin);
+				writeToPins(roomData, BUSY);
+				} else { //if(roomData.value !== LOW) {
+				writeToPins(roomData, FREE);
 			}
 		}, function(err) {
 			if(err) {
@@ -78,13 +90,58 @@ cron(cronObject, function() {
 });
 
 // Write to gpio pins
-function writeToPin(roomData, value) {
-	closePinIfOpen(roomData, roomData.isOpen).then(function() {
-		console.log('Opening pin ' + roomData.pin);
-		gpio.open(roomData.pin, 'output', function(err) {
-			roomData.isOpen = true;
-			gpio.write(roomData.pin, value, function() {});
+// function writeToPin(roomData, value) {
+// 	closePinIfOpen(roomData, roomData.isOpen).then(function() {
+// 		console.log('Opening pin ' + roomData.pin);
+// 		gpio.open(roomData.pin, 'output', function(err) {
+// 			roomData.isOpen = true;
+// 			gpio.write(roomData.pin, value, function() {});
+// 		});
+// 	});
+// }
+
+// determine which pins to write to based on bust state of the room
+function writeToPins(roomData, value) {
+	if(value) {
+		//write high to busy, low to open
+		writeHigh(roomData.busyPin);
+		writeLow(roomData.openPin);
+	} else {
+		// write high to open, low to busy
+		writeHigh(roomData.openPin);
+		writeLow(roomData.busyPin);
+	}
+}
+
+// Write high to pin
+function writeHigh(pin) {
+	gpioOpen(pin)
+		.then(gpioWrite(pin, HIGH));
+}
+
+// Write low to pin
+function writeLow(pin) {
+	gpioOpen(pin)
+		.then(gpioWrite(pin, LOW));
+}
+
+function gpioOpen(pin) {
+	return new Promise(function(resolve) {
+		gpio.open(pin, OUTPUT, function(err) {
+				if(err) {
+					console.log(gpioOpenErr);
+				}
+
+				resolve();
 		});
+	});
+}
+
+function gpioWrite(pin, value) {
+	gpio.write(pin, value, function(err) {
+		if(err) {
+			console.log(err);
+		}
 	});
 }
 

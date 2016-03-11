@@ -129,7 +129,7 @@ function gpioOpen(pin) {
 	return new Promise(function(resolve) {
 		gpio.open(pin, OUTPUT, function(err) {
 				if(err) {
-					console.log(gpioOpenErr);
+					console.log(err);
 				}
 
 				resolve();

@@ -116,13 +116,16 @@ function writeToPins(roomData, value) {
 // Write high to pin
 function writeHigh(pin) {
 	gpioOpen(pin)
-		.then(gpioWrite(pin, HIGH));
+		.then(function() {
+			gpioWrite(pin, HIGH);
+		});
 }
 
 // Write low to pin
 function writeLow(pin) {
-	gpioOpen(pin)
-		.then(gpioWrite(pin, LOW));
+	gpioOpen(pin).then(function() {
+		gpioWrite(pin, LOW);
+	});
 }
 
 function gpioOpen(pin) {

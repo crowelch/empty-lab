@@ -103,10 +103,11 @@ function writeToPins(roomData, value) {
 
 // Write high to pin
 function writeHigh(pin) {
-	gpioOpen(pin)
-		.then(function() {
-			gpioWrite(pin, HIGH);
-		});
+	gpioClose(pin).then(function () {
+		return gpioOpen(pin);
+	}).then(function() {
+		gpioWrite(pin, HIGH);
+	});
 }
 
 // Write low to pin
@@ -130,11 +131,15 @@ function gpioOpen(pin) {
 }
 
 function gpioClose(pin) {
-	gpio.close(pin, function(err) {
-		if(err) {
-			console.log('close error:');
-			console.log(err);
-		}
+	return new Promise(function(resolve) {
+		gpio.close(pin, function(err) {
+			if(err) {
+				console.log('close error:');
+				console.log(err);
+			}
+
+			resolve();
+		});
 	});
 }
 

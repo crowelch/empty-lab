@@ -22,7 +22,6 @@ var mapRoomToPin = {
 	'537': {
 		openPin: 18,
 		busyPin: 24,
-		pin: 18,
 		value: LOW,
 		isOpen: false,
 		isBusy: false
@@ -88,17 +87,6 @@ cron(cronObject, function() {
 
 	console.log('cron finished', Date.now());
 });
-
-// Write to gpio pins
-// function writeToPin(roomData, value) {
-// 	closePinIfOpen(roomData, roomData.isOpen).then(function() {
-// 		console.log('Opening pin ' + roomData.pin);
-// 		gpio.open(roomData.pin, 'output', function(err) {
-// 			roomData.isOpen = true;
-// 			gpio.write(roomData.pin, value, function() {});
-// 		});
-// 	});
-// }
 
 // determine which pins to write to based on bust state of the room
 function writeToPins(roomData, value) {

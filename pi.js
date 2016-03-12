@@ -51,7 +51,7 @@ var pins = {
 		isHigh: false,
 		isOpen: false
 	},
-	'28': {
+	'18': {
 		isHigh: false,
 		isOpen: false
 	},
@@ -191,7 +191,7 @@ function gpioWrite(pin, value) {
 
 // Save pin state
 function savePinState(pin, value) {
-	console.log('pin:' pin);
+	console.log('pin:', pin);
 	console.log(typeof pin);
 	console.log(typeof pins[pin]);
 	console.log(pins[pin]);

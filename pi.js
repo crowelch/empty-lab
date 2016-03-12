@@ -67,7 +67,7 @@ var pins = {
 		isHigh: false,
 		isOpen: false
 	},
-	'25': {
+	'15': {
 		isHigh: false,
 		isOpen: false
 	},

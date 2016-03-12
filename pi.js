@@ -186,11 +186,6 @@ function gpioWrite(pin, value) {
 
 // Save pin state
 function savePinState(pin, value) {
-	console.log('pin:', pin);
-	console.log(typeof pin);
-	console.log(typeof pins[pin]);
-	console.log(pins[pin]);
-
 	if(value === HIGH) {
 		pins[pin].isHigh = true;
 	} else {

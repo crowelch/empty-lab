@@ -88,22 +88,11 @@ var cronObject = {
 cron(cronObject, function() {
 	// Get latest room data
 	utils.getRooms().then(function(rooms) {
-		console.log('rooms: ');
-		console.dir(rooms);
-
 		// Asynchronously update each room's status
 		async.each(rooms, function(room) {
-			console.log('room: ');
-			console.dir(room);
-
 			var roomData = mapRoomToPin[room.number];
 
-			console.log('roomdata: ');
-			console.dir(roomData);
-
 			// Check status and call function to write to pins
-			console.log('room status: ', room.status);
-			console.log('room value: ', roomData.value);
 			if(room.status && !pins[roomData.busyPin].isHigh) {
 				console.log('writing high to ' + roomData.busyPin);
 				writeToPins(roomData, BUSY);
@@ -154,7 +143,6 @@ function gpioOpen(pin) {
 					console.log('open error:');
 					console.log(err);
 				}
-				console.log('done opening ', pin);
 				resolve();
 		});
 	});
@@ -198,7 +186,6 @@ function closePinIfOpen(roomData, isOpen) {
 	if(isOpen) {
 		gpio.close(roomData.pin);
 		roomData.isOpen = false;
-		console.log('closing pin ' + roomData.pin);
 	}
 
 	return Promise.resolve();

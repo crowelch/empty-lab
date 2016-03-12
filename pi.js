@@ -43,35 +43,35 @@ var mapRoomToPin = {
 };
 
 var pins = {
-	22: {
+	'22': {
 		isHigh: false,
 		isOpen: false
 	},
-	26: {
+	'26': {
 		isHigh: false,
 		isOpen: false
 	},
-	28: {
+	'28': {
 		isHigh: false,
 		isOpen: false
 	},
-	24: {
+	'24': {
 		isHigh: false,
 		isOpen: false
 	},
-	16: {
+	'16': {
 		isHigh: false,
 		isOpen: false
 	},
-	23: {
+	'23': {
 		isHigh: false,
 		isOpen: false
 	},
-	25: {
+	'25': {
 		isHigh: false,
 		isOpen: false
 	},
-	21: {
+	'21': {
 		isHigh: false,
 		isOpen: false
 	},
@@ -192,9 +192,9 @@ function gpioWrite(pin, value) {
 // Save pin state
 function savePinState(pin, value) {
 	if(value === HIGH) {
-		pins.pin.isHigh = true;
+		pins[pin]isHigh = true;
 	} else {
-		pins.pin.isHigh = false;
+		pins[pin]isHigh = false;
 	}
 }
 

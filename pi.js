@@ -74,7 +74,7 @@ var pins = {
 	'21': {
 		isHigh: false,
 		isOpen: false
-	},
+	}
 }
 
 // Settings for cron
@@ -191,10 +191,12 @@ function gpioWrite(pin, value) {
 
 // Save pin state
 function savePinState(pin, value) {
+	console.log(pin);
+	console.log(pins[pin]);
 	if(value === HIGH) {
-		pins[pin.toString()].isHigh = true;
+		pins[pin].isHigh = true;
 	} else {
-		pins[pin.toString()].isHigh = false;
+		pins[pin].isHigh = false;
 	}
 }
 

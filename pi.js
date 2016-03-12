@@ -44,27 +44,35 @@ var mapRoomToPin = {
 
 var pins = {
 	22: {
+		isHigh: false,
 		isOpen: false
 	},
 	26: {
+		isHigh: false,
 		isOpen: false
 	},
 	28: {
+		isHigh: false,
 		isOpen: false
 	},
 	24: {
+		isHigh: false,
 		isOpen: false
 	},
 	16: {
+		isHigh: false,
 		isOpen: false
 	},
 	23: {
+		isHigh: false,
 		isOpen: false
 	},
 	25: {
+		isHigh: false,
 		isOpen: false
 	},
 	21: {
+		isHigh: false,
 		isOpen: false
 	},
 }
@@ -98,11 +106,12 @@ cron(cronObject, function() {
 			// Check status and call function to write to pins
 			console.log('room status: ', room.status);
 			console.log('room value: ', roomData.value);
-			if(room.status) { // && (roomData.value !==	HIGH)) {
+			if(room.status && !pins[roomData.busyPin].isHigh) { // && (roomData.value !==	HIGH)) {
 				console.log('writing high to ' + roomData.busyPin);
 				writeToPins(roomData, BUSY);
-				} else { //if(roomData.value !== LOW) {
-				writeToPins(roomData, FREE);
+			} else if(roomData.openPin) { //if(roomData.value !== LOW) {
+					console.log('writing low to ', roomData.openPin);
+					writeToPins(roomData, FREE);
 			}
 		}, function(err) {
 			if(err) {
@@ -174,8 +183,19 @@ function gpioWrite(pin, value) {
 		if(err) {
 			console.log('write error:');
 			console.log(err);
+		} else {
+			savePinState(pin, value);
 		}
 	});
+}
+
+// Save pin state
+function savePinState(pin, value) {
+	if(value === HIGH) {
+		pins[pin].isHigh = true;
+	} else {
+		pins[pin].isHigh = false;
+	}
 }
 
 // Check if a pin is open, if so close it...?

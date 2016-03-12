@@ -86,8 +86,6 @@ var cronObject = {
 
 // Run cron job
 cron(cronObject, function() {
-	console.log('cron started', Date.now());
-
 	// Get latest room data
 	utils.getRooms().then(function(rooms) {
 		console.log('rooms: ');
@@ -95,11 +93,22 @@ cron(cronObject, function() {
 
 		// Asynchronously update each room's status
 		async.each(rooms, function(room) {
+			console.log('room: ');
+			console.dir(room);
+
 			var roomData = mapRoomToPin[room.number];
+
+			console.log('roomdata: ');
+			console.dir(roomData);
+
 			// Check status and call function to write to pins
+			console.log('room status: ', room.status);
+			console.log('room value: ', roomData.value);
 			if(room.status && !pins[roomData.busyPin].isHigh) { // && (roomData.value !==	HIGH)) {
+				console.log('writing high to ' + roomData.busyPin);
 				writeToPins(roomData, BUSY);
 			} else if(roomData.openPin) { //if(roomData.value !== LOW) {
+					console.log('writing low to ', roomData.openPin);
 					writeToPins(roomData, FREE);
 			}
 		}, function(err) {
@@ -146,7 +155,7 @@ function gpioOpen(pin) {
 					console.log('open error:');
 					console.log(err);
 				}
-
+				console.log('done opening ', pin);
 				resolve();
 		});
 	});
@@ -178,6 +187,11 @@ function gpioWrite(pin, value) {
 
 // Save pin state
 function savePinState(pin, value) {
+	console.log('pin:', pin);
+	console.log(typeof pin);
+	console.log(typeof pins[pin]);
+	console.log(pins[pin]);
+
 	if(value === HIGH) {
 		pins[pin].isHigh = true;
 	} else {
@@ -190,6 +204,7 @@ function closePinIfOpen(roomData, isOpen) {
 	if(isOpen) {
 		gpio.close(roomData.pin);
 		roomData.isOpen = false;
+		console.log('closing pin ' + roomData.pin);
 	}
 
 	return Promise.resolve();

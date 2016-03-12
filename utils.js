@@ -29,9 +29,6 @@ exports.getRooms = function() {
 			// Clean up the raw data by parsing it as JSON from a string, and returnjust the rooms array
 			var cleanData = JSON.parse(data).rooms;
 
-			console.log('cleanData:');
-			console.dir(cleanData);
-
 			resolve(cleanData);
 		});
 	});

@@ -192,9 +192,9 @@ function gpioWrite(pin, value) {
 // Save pin state
 function savePinState(pin, value) {
 	if(value === HIGH) {
-		pins[pin].isHigh = true;
+		pins[pin.toString()].isHigh = true;
 	} else {
-		pins[pin].isHigh = false;
+		pins[pin.toString()].isHigh = false;
 	}
 }
 

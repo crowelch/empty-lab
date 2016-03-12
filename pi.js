@@ -104,11 +104,10 @@ cron(cronObject, function() {
 			// Check status and call function to write to pins
 			console.log('room status: ', room.status);
 			console.log('room value: ', roomData.value);
-			if(room.status && !pins[roomData.busyPin].isHigh) { // && (roomData.value !==	HIGH)) {
+			if(room.status && !pins[roomData.busyPin].isHigh) {
 				console.log('writing high to ' + roomData.busyPin);
 				writeToPins(roomData, BUSY);
-			} else if(roomData.openPin) { //if(roomData.value !== LOW) {
-					console.log('writing low to ', roomData.openPin);
+			} else if(!pins[roomData.openPin].isHigh) {
 					writeToPins(roomData, FREE);
 			}
 		}, function(err) {

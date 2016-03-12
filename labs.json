@@ -98,6 +98,10 @@
 			"dayOfWeek": "Thursday",
 			"start": "14:00",
 			"end": "16:50"
+		},{
+			"dayOfWeek": "Saturday",
+			"start": "14:00",
+			"end": "21:50"
 		}]
 	}]
 }

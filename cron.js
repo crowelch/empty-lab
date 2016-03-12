@@ -45,6 +45,7 @@ function writeRoomToFile() {
 
 // Add a room's data to roomObject
 function addRoom(roomNumber, status) {
+	console.log(roomNumber, status);
 	roomObject.rooms.push({
 		number: roomNumber,
 		status: status
@@ -53,6 +54,7 @@ function addRoom(roomNumber, status) {
 
 // Handy abstraction to addRoom to call from the cron job
 function updateRooms(room) {
+	// console.log(room, isRoomBusy(room));
 	addRoom(room.number, isRoomBusy(room));
 }
 

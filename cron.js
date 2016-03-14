@@ -39,6 +39,8 @@ function writeRoomToFile() {
 	fs.writeFile(ROOM_FILE, JSON.stringify(roomObject), function(error) {
 		if(error) {
 			console.log('write rooms file error', error);
+		} else {
+			console.log('room written');
 		}
 	});
 }

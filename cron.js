@@ -30,6 +30,7 @@ cron(cronObject, function() {
 		if(err) {
 			console.log('cron async.each error: ' + err);
 		}
+
 		writeRoomToFile();
 	});
 });
@@ -39,15 +40,12 @@ function writeRoomToFile() {
 	fs.writeFile(ROOM_FILE, JSON.stringify(roomObject), function(error) {
 		if(error) {
 			console.log('write rooms file error', error);
-		} else {
-			console.log('room written');
 		}
 	});
 }
 
 // Add a room's data to roomObject
 function addRoom(roomNumber, status) {
-	console.log(roomNumber, status);
 	roomObject.rooms.push({
 		number: roomNumber,
 		status: status
@@ -55,9 +53,9 @@ function addRoom(roomNumber, status) {
 }
 
 // Handy abstraction to addRoom to call from the cron job
-function updateRooms(room) {
-	// console.log(room, isRoomBusy(room));
+function updateRooms(room, cb) {
 	addRoom(room.number, isRoomBusy(room));
+	cb();
 }
 
 // Return whether a room is busy (true) or not (false)
@@ -90,4 +88,4 @@ function classHasEnded(endTime) {
 }
 
 // Alert the user the cron job is running
-console.log('empty-lab cron.js has started!');
+console.log('cron.js has started!');

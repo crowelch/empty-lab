@@ -38,7 +38,7 @@ cron(cronObject, function() {
 function writeRoomToFile() {
 	fs.writeFile(ROOM_FILE, JSON.stringify(roomObject), function(error) {
 		if(error) {
-			console.log(error);
+			console.log('write rooms file error', error);
 		}
 	});
 }

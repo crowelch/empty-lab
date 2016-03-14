@@ -99,7 +99,7 @@ cron(cronObject, function() {
 			if(room.status && !pins[roomData.busyPin].isHigh) {
 				console.log('writing high to ' + roomData.busyPin);
 				writeToPins(roomData, BUSY);
-			} else if(!pins[roomData.openPin].isHigh) {
+			} else if(!room.status && !pins[roomData.openPin].isHigh) {
 					writeToPins(roomData, FREE);
 			}
 		}, function(err) {

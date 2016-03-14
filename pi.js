@@ -93,7 +93,7 @@ cron(cronObject, function() {
 			var roomData = mapRoomToPin[room.number];
 
 			console.log('room status:', room.status);
-			console.log(pin, 'high?', pins[roomData.busyPin].isHigh);
+			console.log('high?', pins[roomData.busyPin].isHigh);
 
 			// Check status and call function to write to pins
 			if(room.status && !pins[roomData.busyPin].isHigh) {
